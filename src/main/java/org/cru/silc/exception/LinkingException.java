@@ -5,15 +5,15 @@ package org.cru.silc.exception;
  */
 public class LinkingException extends Exception
 {
-	private static final long serialVersionUID = -4324411778119490111L;
+    private static final long serialVersionUID = -4324411778119490111L;
 
-	public LinkingException(Throwable cause)
-	{
-		super(cause);
-	}
+    public LinkingException(Throwable cause)
+    {
+        super(cause);
+    }
 
-	public LinkingException(String message)
-	{
-		super(message);
-	}
+    public LinkingException(String message)
+    {
+        super(message);
+    }
 }
