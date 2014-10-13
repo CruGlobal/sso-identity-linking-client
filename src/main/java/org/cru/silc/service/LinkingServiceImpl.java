@@ -58,7 +58,10 @@ public class LinkingServiceImpl implements LinkingService
 
         String xmlResponse = response.getEntity(String.class);
 
-        logger.info("get identity by provider type xml response for " + identity.getId() + " is " + xmlResponse);
+        if(logger.isDebugEnabled())
+        {
+            logger.debug("get identity by provider type xml response for " + identity.getId() + " is " + xmlResponse);
+        }
 
         return getIdentityByProviderType(xmlResponse, providerType);
     }
@@ -69,7 +72,10 @@ public class LinkingServiceImpl implements LinkingService
 
         String xml = marshalIdentity(second);
 
-        logger.info("link identities for " + first.getId() + "," + first.getType() + " is " + xml);
+        if(logger.isDebugEnabled())
+        {
+            logger.debug("link identities for " + first.getId() + "," + first.getType() + " is " + xml);
+        }
 
         // issue POST request and get a response
         ClientResponse response = webResource.post(ClientResponse.class, xml);
