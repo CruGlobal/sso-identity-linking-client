@@ -48,7 +48,10 @@ public class LinkingServiceImpl implements LinkingService
 		ClientResponse response = webResource.get(ClientResponse.class);
 
 		if (response.getStatus() != 200)
+		{
 			throwException("get identity by provider type failed for " + identity.toString() + " and provider type " + providerType.toString() + " with http error code " + response.getStatus());
+
+		}
 
 		String xmlResponse = response.getEntity(String.class);
 
@@ -69,7 +72,10 @@ public class LinkingServiceImpl implements LinkingService
 		ClientResponse response = webResource.post(ClientResponse.class, xml);
 
 		if (response.getStatus() != 201)
+		{
 			throwException("link identities failed for " + first.toString() + " and " + second.toString() + " with http error code " + response.getStatus());
+
+		}
 	}
 
 	public void deleteLink(Identity identity) throws LinkingException
@@ -79,8 +85,12 @@ public class LinkingServiceImpl implements LinkingService
 		// issue DELETE request and get a response
 		ClientResponse response = webResource.delete(ClientResponse.class);
 
-		if (response.getStatus() != 200) // TODO should return 204 since there is no content returned
+		// TODO should return 204 since there is no content returned
+		if (response.getStatus() != 200)
+		{
 			throwException("delete link failed for " + identity.toString() + " with http error code " + response.getStatus());
+
+		}
 	}
 
 	private Identity getIdentityByProviderType(String xml, Identity.ProviderType providerType) throws LinkingException
@@ -88,9 +98,15 @@ public class LinkingServiceImpl implements LinkingService
 		Identities identities = unmarshalIdentities(xml);
 
 		for (Identity identity : identities.getIdentities())
+		{
 			if (providerType.equals(identity.getType()))
+			{
 				if (!Strings.isNullOrEmpty(identity.getId()))
+				{
 					return identity;
+				}
+			}
+		}
 
 		return null;
 	}
